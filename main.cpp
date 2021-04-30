@@ -91,6 +91,40 @@ void delete_pointer(pNode &p,string name){
     }
 }
 
+
+void delete_pointer(pNode &p, unsigned position){
+    if(p==0){
+        cout << "List is empty nothing to delete!";
+    /** We need to search for the name on the list **/
+    } else {
+        /** loop over the list until we find our name **/
+        pNode temp = p, temp1 = 0;
+        int index=1;
+        while( temp!=0 && index<position){
+            temp1 = temp;
+            temp=temp->next_name;
+            index ++;
+        }
+        /** case 1: we reached the end of the list without finding the name **/
+        if(temp==0)
+            cout << "Could not find such name on the list.";
+        /** case 2: we found the name **/
+        else {
+            /** case 1: we are at the beginning of the list **/
+            if(temp1==0){
+                temp = temp->next_name;
+                p = temp;
+
+            /** case 2: this case treats both in the middle and at the end of the list **/
+            } else
+                temp1->next_name=temp->next_name;
+
+            /** delete temp **/
+            temp = 0;
+        }
+    }
+}
+
 void insert_pointer(pNode &p,string name){
     /** Step 1: if my list is empty. **/
     if(p==0){
@@ -276,9 +310,9 @@ void print_stuff(char in){
                     insert_pointer(myList2,name);
                     break;
                 case 'b':
-                    cout << "Enter the name : ";
-                    cin >> name;
-                    delete_pointer(myList2,name);
+                    cout << "Enter the position : ";
+                    cin >> position;
+                    delete_pointer(myList2,position);
                     break;
                 case 'c':
                     cout << "Enter a name to search " << endl;
